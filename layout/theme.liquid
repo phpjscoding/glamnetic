@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    {% # Inlined CSS Variables %}
+    {% render 'css-variables' %}
+
+    {% # Load and preload the critical CSS %}
+    {{ 'critical.css' | asset_url | stylesheet_tag: preload: true }}
+
+    {% # Social, title, etc. %}
+    {% render 'meta-tags' %}
+
+    {{ content_for_header }}
+
+  </head>
+
+  <body>
+    {% sections 'header-group' %}
+
+    {{ content_for_layout }}
+
+    {% sections 'footer-group' %}
+      
+
+    
+  </body>
+</html>
+{% comment %} 
+ START HTML DOCUMENT
+
+HEAD SECTION:
+  - Set character encoding to UTF-8
+  - Set viewport for mobile devices
+  - Add canonical URL link
+  
+  IF favicon exists THEN
+    - Add favicon link
+  END IF
+  
+  IF using custom fonts THEN
+    - Connect to Shopify fonts server
+  END IF
+  
+  TITLE:
+    - Show page title
+    - IF has tags THEN add tags to title
+    - IF not first page THEN add page number
+    - Add shop name if not already in title
+  END TITLE
+  
+  IF page has description THEN
+    - Add meta description
+  END IF
+  
+  - Load meta tags component
+  
+  LOAD JAVASCRIPT FILES:
+    - constants.js
+    - pubsub.js
+    - global.js
+    - details-disclosure.js
+    - details-modal.js
+    - search-form.js
+  
+  IF animations enabled THEN
+    - Load animations.js
+  END IF
+  
+  LOAD FONTS:
+    - Get body font (normal, bold, italic, bold-italic)
+    - Get header font
+  
+  CREATE CSS VARIABLES:
+    FOR each color scheme DO
+      - Set background color
+      - Set text color
+      - Set button colors
+      - Set shadow colors
+      - Calculate contrast colors
+    END FOR
+    
+    SET DESIGN VARIABLES:
+      - Font families and sizes
+      - Card styles (product, collection, blog)
+      - Spacing values
+      - Border radius
+      - Shadow settings
+      - Button styles
+      - Input field styles
+    END SET
+  END CREATE
+  
+  SET BASIC STYLES:
+    - Box sizing for all elements
+    - HTML font size calculation
+    - Body grid layout
+    - Font properties
+  END SET
+  
+  LOAD CSS FILES:
+    - base.css
+    - cart components CSS
+    IF cart type is drawer THEN
+      - Load drawer specific CSS
+    END IF
+  END LOAD
+  
+  PRELOAD FONTS:
+    IF body font not system font THEN
+      - Preload body font
+    END IF
+    IF header font not system font THEN
+      - Preload header font
+    END IF
+  END PRELOAD
+  
+  IF multiple countries or languages available THEN
+    - Load localization form
+  END IF
+  
+  IF predictive search enabled THEN
+    - Load search CSS
+  END IF
+  
+  IF in Shopify design mode THEN
+    - Add design mode class
+  END IF
+
+END HEAD SECTION
+
+BODY SECTION:
+  - Add skip to content link for accessibility
+  
+  IF cart type is drawer THEN
+    - Render cart drawer
+  END IF
+  
+  - Render header sections
+  
+  MAIN CONTENT AREA:
+    - Display page content here
+  END MAIN
+  
+  - Render footer sections
+  
+  HIDDEN ACCESSIBILITY MESSAGES:
+    - Refresh page message
+    - New window message
+  END HIDDEN
+  
+  SET JAVASCRIPT VARIABLES:
+    - Shop URL
+    - Cart URLs
+    - Search URL
+    - Cart error messages
+    - Product variant messages
+    - Quick order list messages
+    - Accessibility messages
+  END SET
+  
+  IF predictive search enabled THEN
+    - Load predictive search script
+  END IF
+  
+  IF cart type is drawer THEN
+    - Load cart drawer script
+  END IF
+
+END BODY SECTION
+
+END HTML DOCUMENT
+
+{% endcomment %}

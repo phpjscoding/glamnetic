@@ -1,0 +1,281 @@
+
+  <style>
+    :root {
+      --nav-height: 80px;
+      --dropdown-bg: #ffffff;
+      --text: #000000;
+      --text-light: #555555;
+      --accent: #000000;
+      --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #fafafa;
+    }
+
+    /* Header Nav */
+    .header-nav {
+      height: var(--nav-height);
+      background: white;
+      border-bottom: 1px solid #eaeaea;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 1000;
+    }
+
+    .nav-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 48px;
+    }
+
+    .nav-item {
+      position: relative;
+    }
+
+    .nav-link {
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      color: var(--text);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 8px 0;
+      position: relative;
+      transition: var(--transition);
+    }
+
+    /* Animated Underline */
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.4s ease;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    /* Dropdown Container */
+    .dropdown {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      min-width: 240px;
+      background: var(--dropdown-bg);
+      border: 1px solid #eaeaea;
+      border-radius: 12px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transform: translateX(-50%) translateY(10px);
+      padding: 20px 0;
+      {% comment %} overflow: hidden; {% endcomment %}
+    }
+
+    /* Reveal animation on hover */
+    .nav-item:hover > .dropdown {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Dropdown List */
+    .dropdown-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      min-width: 220px;
+    }
+
+    .dropdown-item {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: var(--transition);
+    }
+
+    .nav-item:hover .dropdown-item {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Stagger animation */
+    .dropdown-item:nth-child(1) { transition-delay: 0.05s; }
+    .dropdown-item:nth-child(2) { transition-delay: 0.1s; }
+    .dropdown-item:nth-child(3) { transition-delay: 0.15s; }
+    .dropdown-item:nth-child(4) { transition-delay: 0.2s; }
+    .dropdown-item:nth-child(5) { transition-delay: 0.25s; }
+
+    .dropdown-link {
+      display: block;
+      padding: 10px 28px;
+      color: var(--text-light);
+      text-decoration: none;
+      font-size: 14.5px;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .dropdown-link:hover {
+      color: var(--accent);
+      background: rgba(0,0,0,0.03);
+    }
+
+    /* Submenu (Level 2) */
+    .has-submenu {
+      position: relative;
+    }
+
+    .submenu {
+      position: absolute;
+      top: 0;
+      left: 100%;
+      width: 240px;
+      background: var(--dropdown-bg);
+      border: 1px solid #eaeaea;
+      border-radius: 12px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(10px);
+      transition: var(--transition);
+      padding: 20px 0;
+    }
+
+    .has-submenu:hover > .submenu {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    /* Arrow Icon */
+    .arrow {
+      margin-left: 8px;
+      transition: transform 0.3s ease;
+    }
+
+    .has-submenu:hover .arrow {
+      transform: translateX(4px);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-list { gap: 24px; }
+      .dropdown { left: 0; transform: translateX(0); }
+    }
+  </style>
+
+
+<nav class="header-nav" aria-label="Primary navigation">
+  <ul class="nav-list">
+
+    <!-- SHOP ALL -->
+    <li class="nav-item">
+      <a href="https://www.glamnetic.com/collections/shop-all-glamnetic-products" class="nav-link">Shop All</a>
+      <div class="dropdown --parent">
+        <ul class="dropdown-list">
+          <li class="dropdown-item has-submenu">
+            <a href="#" class="dropdown-link">Nails <span class="arrow">→</span></a>
+            <div class="submenu">
+              <ul class="dropdown-list">
+                <li class="dropdown-item"><a href="/collections/snowed-in-collection" class="dropdown-link">NEW: Snowed In</a></li>
+                <li class="dropdown-item"><a href="/collections/harry-potter-x-glamnetic-collection-2025" class="dropdown-link">Harry Potter™ x Glamnetic</a></li>
+                <li class="dropdown-item"><a href="/collections/fright-night-collection" class="dropdown-link">Fright Night</a></li>
+                <li class="dropdown-item"><a href="/collections/glamnetic-x-fanatics-collection" class="dropdown-link">Glamnetic x Fanatics</a></li>
+                <li class="dropdown-item"><a href="/collections/hello-kitty-friends-x-glamnetic-2024" class="dropdown-link">Hello Kitty® and Friends</a></li>
+                <li class="dropdown-item"><a href="/collections/best-selling-nails" class="dropdown-link">Best Sellers</a></li>
+                <li class="dropdown-item"><a href="/collections/new-nail-arrivals" class="dropdown-link">New Arrivals</a></li>
+                <li class="dropdown-item"><a href="/collections/shop-all-nails" class="dropdown-link">Shop All Nails</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="dropdown-item has-submenu">
+            <a href="#" class="dropdown-link">Lashes <span class="arrow">→</span></a>
+            <div class="submenu">
+              <ul class="dropdown-list">
+                <li class="dropdown-item"><a href="/collections/best-selling-lashes" class="dropdown-link">Best Sellers</a></li>
+                <li class="dropdown-item"><a href="/pages/lash-guide" class="dropdown-link">Lash Guide</a></li>
+                <li class="dropdown-item"><a href="/collections/all-magnetic-lashes" class="dropdown-keeping">Shop All</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="dropdown-item"><a href="/collections/bundle-and-save" class="dropdown-link">Bundles</a></li>
+          <li class="dropdown-item"><a href="/collections/magnetic-liners" class="dropdown-link">Magnetic Liners</a></li>
+          <li class="dropdown-item"><a href="/collections/all-accessories" class="dropdown-link">Accessories</a></li>
+        </ul>
+      </div>
+    </li>
+
+    <!-- NAILS -->
+    <li class="nav-item">
+      <a href="https://www.glamnetic.com/collections/shop-all-nails" class="nav-link">Nails</a>
+      <div class="dropdown">
+        <ul class="dropdown-list">
+          <li class="dropdown-item"><a href="/pages/byob-nails" class="dropdown-link">Build Your Own Bundle</a></li>
+          <li class="dropdown-item has-submenu">
+            <a href="#" class="dropdown-link">Shop by Length <span class="arrow">→</span></a>
+            <div class="submenu">
+              <ul class="dropdown-list">
+                <li class="dropdown-item"><a href="/collections/short-nails-1" class="dropdown-link">Short</a></li>
+                <li class="dropdown-item"><a href="/collections/super-short-nails" class="dropdown-link">Super Short</a></li>
+                <li class="dropdown-item"><a href="/collections/medium-nails-1" class="dropdown-link">Medium</a></li>
+                <li class="dropdown-item"><a href="/collections/long-nails-1" class="dropdown-link">Long</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="dropdown-item has-submenu">
+            <a href="#" class="dropdown-link">Shop by Shape <span class="arrow">→</span></a>
+            <div class="submenu">
+              <ul class="dropdown-list">
+                <li class="dropdown-item"><a href="/collections/almond-nails" class="dropdown-link">Almond</a></li>
+                <li class="dropdown-item"><a href="/collections/coffin-nails" class="dropdown-link">Coffin</a></li>
+                <li class="dropdown-item"><a href="/collections/square-nails" class="dropdown-link">Square</a></li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </li>
+
+    <!-- LASHES -->
+    <li class="nav-item">
+      <a href="https://www.glamnetic.com/collections/all-magnetic-lashes" class="nav-link">Lashes</a>
+      <div class="dropdown">...</div>
+    </li>
+
+    <!-- BUNDLES -->
+    <li class="nav-item">
+      <a href="https://www.glamnetic.com/collections/bundle-and-save" class="nav-link">Bundles</a>
+      <div class="dropdown">...</div>
+    </li>
+
+    <!-- COLLABORATIONS -->
+    <li class="nav-item">
+      <a href="https://www.glamnetic.com/collections/glamnetic-x-fanatics-collection" class="nav-link">Collaborations</a>
+      <div class="dropdown">
+        <ul class="dropdown-list">
+          <li class="dropdown-item"><a href="/collections/harry-potter-x-glamnetic-collection-2025" class="dropdown-link">Harry Potter™ x Glamnetic</a></li>
+          <li class="dropdown-item"><a href="/collections/hello-kitty-friends-x-glamnetic-2024" class="dropdown-link">Hello Kitty® and Friends</a></li>
+        </ul>
+      </div>
+    </li>
+
+  </ul>
+</nav>
