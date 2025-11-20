@@ -182,100 +182,50 @@
     }
   </style>
 
-
 <nav class="header-nav" aria-label="Primary navigation">
   <ul class="nav-list">
+    {% for link in links %}
+      <li class="nav-item{% if link.links != blank %} has-dropdown{% endif %}">
+        <a href="{{ link.url }}" class="nav-link">
+          {{ link.title }}
+          {% if link.links != blank %}
+            <span class="arrow">→</span>
+          {% endif %}
+        </a>
 
-    <!-- SHOP ALL -->
-    <li class="nav-item">
-      <a href="https://www.glamnetic.com/collections/shop-all-glamnetic-products" class="nav-link">Shop All</a>
-      <div class="dropdown --parent">
-        <ul class="dropdown-list">
-          <li class="dropdown-item has-submenu">
-            <a href="#" class="dropdown-link">Nails <span class="arrow">→</span></a>
-            <div class="submenu">
-              <ul class="dropdown-list">
-                <li class="dropdown-item"><a href="/collections/snowed-in-collection" class="dropdown-link">NEW: Snowed In</a></li>
-                <li class="dropdown-item"><a href="/collections/harry-potter-x-glamnetic-collection-2025" class="dropdown-link">Harry Potter™ x Glamnetic</a></li>
-                <li class="dropdown-item"><a href="/collections/fright-night-collection" class="dropdown-link">Fright Night</a></li>
-                <li class="dropdown-item"><a href="/collections/glamnetic-x-fanatics-collection" class="dropdown-link">Glamnetic x Fanatics</a></li>
-                <li class="dropdown-item"><a href="/collections/hello-kitty-friends-x-glamnetic-2024" class="dropdown-link">Hello Kitty® and Friends</a></li>
-                <li class="dropdown-item"><a href="/collections/best-selling-nails" class="dropdown-link">Best Sellers</a></li>
-                <li class="dropdown-item"><a href="/collections/new-nail-arrivals" class="dropdown-link">New Arrivals</a></li>
-                <li class="dropdown-item"><a href="/collections/shop-all-nails" class="dropdown-link">Shop All Nails</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="dropdown-item has-submenu">
-            <a href="#" class="dropdown-link">Lashes <span class="arrow">→</span></a>
-            <div class="submenu">
-              <ul class="dropdown-list">
-                <li class="dropdown-item"><a href="/collections/best-selling-lashes" class="dropdown-link">Best Sellers</a></li>
-                <li class="dropdown-item"><a href="/pages/lash-guide" class="dropdown-link">Lash Guide</a></li>
-                <li class="dropdown-item"><a href="/collections/all-magnetic-lashes" class="dropdown-keeping">Shop All</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="dropdown-item"><a href="/collections/bundle-and-save" class="dropdown-link">Bundles</a></li>
-          <li class="dropdown-item"><a href="/collections/magnetic-liners" class="dropdown-link">Magnetic Liners</a></li>
-          <li class="dropdown-item"><a href="/collections/all-accessories" class="dropdown-link">Accessories</a></li>
-        </ul>
-      </div>
-    </li>
-
-    <!-- NAILS -->
-    <li class="nav-item">
-      <a href="https://www.glamnetic.com/collections/shop-all-nails" class="nav-link">Nails</a>
-      <div class="dropdown">
-        <ul class="dropdown-list">
-          <li class="dropdown-item"><a href="/pages/byob-nails" class="dropdown-link">Build Your Own Bundle</a></li>
-          <li class="dropdown-item has-submenu">
-            <a href="#" class="dropdown-link">Shop by Length <span class="arrow">→</span></a>
-            <div class="submenu">
-              <ul class="dropdown-list">
-                <li class="dropdown-item"><a href="/collections/short-nails-1" class="dropdown-link">Short</a></li>
-                <li class="dropdown-item"><a href="/collections/super-short-nails" class="dropdown-link">Super Short</a></li>
-                <li class="dropdown-item"><a href="/collections/medium-nails-1" class="dropdown-link">Medium</a></li>
-                <li class="dropdown-item"><a href="/collections/long-nails-1" class="dropdown-link">Long</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="dropdown-item has-submenu">
-            <a href="#" class="dropdown-link">Shop by Shape <span class="arrow">→</span></a>
-            <div class="submenu">
-              <ul class="dropdown-list">
-                <li class="dropdown-item"><a href="/collections/almond-nails" class="dropdown-link">Almond</a></li>
-                <li class="dropdown-item"><a href="/collections/coffin-nails" class="dropdown-link">Coffin</a></li>
-                <li class="dropdown-item"><a href="/collections/square-nails" class="dropdown-link">Square</a></li>
-              </ul>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </li>
-
-    <!-- LASHES -->
-    <li class="nav-item">
-      <a href="https://www.glamnetic.com/collections/all-magnetic-lashes" class="nav-link">Lashes</a>
-      <div class="dropdown">...</div>
-    </li>
-
-    <!-- BUNDLES -->
-    <li class="nav-item">
-      <a href="https://www.glamnetic.com/collections/bundle-and-save" class="nav-link">Bundles</a>
-      <div class="dropdown">...</div>
-    </li>
-
-    <!-- COLLABORATIONS -->
-    <li class="nav-item">
-      <a href="https://www.glamnetic.com/collections/glamnetic-x-fanatics-collection" class="nav-link">Collaborations</a>
-      <div class="dropdown">
-        <ul class="dropdown-list">
-          <li class="dropdown-item"><a href="/collections/harry-potter-x-glamnetic-collection-2025" class="dropdown-link">Harry Potter™ x Glamnetic</a></li>
-          <li class="dropdown-item"><a href="/collections/hello-kitty-friends-x-glamnetic-2024" class="dropdown-link">Hello Kitty® and Friends</a></li>
-        </ul>
-      </div>
-    </li>
-
+        {% comment %} Level 2: Check if this item has child links {% endcomment %}
+        {% if link.links != blank %}
+          <div class="dropdown --parent">
+            <ul class="dropdown-list">
+              {% for child_link in link.links %}
+                <li class="dropdown-item{% if child_link.links != blank %} has-submenu{% endif %}">
+                  <a href="{{ child_link.url }}" class="dropdown-link">
+                    {{ child_link.title }}
+                    {% if child_link.links != blank %}
+                      <span class="arrow">→</span>
+                    {% endif %}
+                  </a>
+                  
+                  {% comment %} Level 3: Check if this child has grandchild links {% endcomment %}
+                  {% if child_link.links != blank %}
+                    <div class="submenu">
+                      <ul class="dropdown-list">
+                        {% for grandchild_link in child_link.links %}
+                          <li class="dropdown-item">
+                            <a href="{{ grandchild_link.url }}" class="dropdown-link">
+                              {{ grandchild_link.title }}
+                            </a>
+                          </li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                  {% endif %}
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endif %} 
+      </li>
+    {% endfor %}
   </ul>
 </nav>
