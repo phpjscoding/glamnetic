@@ -6,7 +6,7 @@
       --text: #000000;
       --text-light: #555555;
       --accent: #000000;
-      --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      --dropdown-transition: all 0.65s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     body {
@@ -48,11 +48,11 @@
       letter-spacing: 0.5px;
       padding: 8px 0;
       position: relative;
-      transition: var(--transition);
+      transition: var(--dropdown-transition);
     }
 
     /* Animated Underline */
-    .nav-link::after {
+    {% comment %} .nav-link::after {
       content: '';
       position: absolute;
       bottom: 0;
@@ -65,8 +65,11 @@
 
     .nav-link:hover::after {
       width: 100%;
-    }
-
+    } {% endcomment %}
+.nav-item.has-dropdown:hover  .dropdown::after{
+  width:100%;
+  
+}
     /* Dropdown Container */
     .dropdown {
       position: absolute;
@@ -106,7 +109,7 @@
     .dropdown-item {
       opacity: 0;
       transform: translateY(10px);
-      transition: var(--transition);
+      transition: var(--dropdown-transition);
     }
 
     .nav-item:hover .dropdown-item {
@@ -127,7 +130,7 @@
       color: var(--text-light);
       text-decoration: none;
       font-size: 14.5px;
-      transition: var(--transition);
+      transition: var(--dropdown-transition);
       position: relative;
     }
 
@@ -154,7 +157,7 @@
       visibility: hidden;
       pointer-events: none;
       transform: translateY(10px);
-      transition: var(--transition);
+      transition: var(--dropdown-transition);
       padding: 20px 0;
     }
 
@@ -174,6 +177,17 @@
     .has-submenu:hover .arrow {
       transform: translateX(4px);
     }
+    .dropdown.--parent::after {
+    content: '';
+    width: 0;
+    height: 3px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: var(--accent);
+    transition:var(--dropdown-transition)
+}
+
 
     /* Responsive */
     @media (max-width: 768px) {
@@ -184,12 +198,17 @@
 
 <nav class="header-nav" aria-label="Primary navigation">
   <ul class="nav-list">
-    {% for link in links %}
+    {% comment %} {% for link in linklists.main-menu.links -%}
+  {{ link.title | link_to: link.url }}
+{%- endfor %} {% endcomment %}
+
+    
+    {% for link in linklists.main-menu.links %}
       <li class="nav-item{% if link.links != blank %} has-dropdown{% endif %}">
         <a href="{{ link.url }}" class="nav-link">
           {{ link.title }}
           {% if link.links != blank %}
-            <span class="arrow">→</span>
+            <span class="arrow">↓</span>
           {% endif %}
         </a>
 
